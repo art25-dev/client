@@ -1,30 +1,112 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container">
+    <div class="bg"></div>
+    <span class="version">Версия - {{ version }}</span>
+    <article>
+      <router-view></router-view>
+    </article>
+    <aside>
+      <Calendar />
+      <Navigation />
+      <p class="tray">Антивирусные базы от 10.08.2021</p>
+    </aside>
   </div>
-  <router-view/>
 </template>
 
+<script>
+import Calendar from "@/components/Calendar";
+import Navigation from "@/components/Navigation";
+import { version } from "../package.json";
+
+export default {
+  components: {
+    Navigation,
+    Calendar
+  },
+  data() {
+    return {
+      version
+    }
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#nav {
-  padding: 30px;
+.container {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". .";
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto-Regular", "Arial", sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.bg {
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  height: 100%;
+  width: 7000px;
+  background: url("./assets/background.jpg") bottom left repeat-x;
+  animation: bg 100s linear infinite;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+aside {
+  background-color: rgba($color-primary, 0.8);
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 2rem 2rem 0 2rem;
+}
+
+.tray {
+  font-size: 1rem;
+  color: $color-second;
+  font-family: "Roboto-Regular", "Arial", sans-serif;
+  padding: 1rem 0;
+  text-align: center;
+  
+  letter-spacing: 1px;
+}
+
+.version {
+  font-size: 12px;
+  color: rgba($color-second, 0.3);
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes bg {
+  from {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translate(-3500px);
   }
 }
 </style>
