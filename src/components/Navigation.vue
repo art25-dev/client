@@ -22,9 +22,6 @@
 
 <script>
 export default {
-  mounted() {
-    this.getMainMenu();
-  },
   methods: {
     getSubMenu(id, type) {
       this.$store.dispatch("getNavigation", id);
@@ -123,7 +120,7 @@ export default {
 .menu__item {
   position: relative;
   color: $color-second;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   user-select: none;
   font-size: 1.3rem;
   letter-spacing: 1px;
@@ -138,6 +135,10 @@ export default {
     height: 1px;
     background: $color-second;
     bottom: 0;
+  }
+
+  &::first-letter {
+    text-transform: capitalize;
   }
 }
 

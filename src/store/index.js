@@ -6,8 +6,7 @@ export default createStore({
   state: {
     navigation: [],
     history: [],
-    postList: [],
-    currentPost: {}
+    postList: []
   },
   mutations: {
     setNavigation(state, navigation) {
@@ -17,22 +16,21 @@ export default createStore({
       state.history.push(id)
     },
     delHistory(state) {
-      if (state.history.length == 1 && state.history[0] === 'null') {
+      if (state.history.length == 1 && state.history[0] === 'none') {
         return
       }
       state.history = state.history.slice(0, -1)
     },
     clearHistory(state) {
-      state.history = ['null']
+      state.history = ['none']
     },
     setPostList(state, postList) {
       state.postList = postList
-      state.currentPost = postList[0]
     },
   },
   actions: {
     // Запрос на сервер навигации
-    async getNavigation({ commit, getters }, id = 'null') {
+    async getNavigation({ commit, getters }, id = 'none') {
       try {
         if (getters.lastNavigation != id) {
           const navigation = await axios.get(`/api/nav/children/${id}`)
@@ -56,8 +54,6 @@ export default createStore({
     navigation: state => state.navigation.sort((a, b) => (a.title > b.title ? 1 : -1)),
     prevNavigation: state => state.history.slice(-2, -1),
     lastNavigation: state => state.history.slice(-1),
-    postList: state => state.postList,
-    first: state => state.currentPost,
-    postItem: state => id => state.postList.find(post => post._id === id)
+    postList: state => state.postList
   }
 })

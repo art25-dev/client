@@ -28,6 +28,11 @@ export default {
       version
     }
   },
+  created() {
+    this.$store.dispatch("getPostList")
+    this.$store.dispatch("getNavigation");
+    this.$store.commit("clearHistory");
+  }
 };
 </script>
 
@@ -107,6 +112,15 @@ aside {
 
   to {
     transform: translate(-3500px);
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>
