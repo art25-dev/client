@@ -24,8 +24,15 @@
 export default {
   methods: {
     getSubMenu(id, type) {
-      this.$store.dispatch("getNavigation", id);
-      this.$store.commit("addHistory", id);
+      if (type === 'link') {
+        this.$store.dispatch("getNavigation", id);
+        this.$store.commit("addHistory", id); 
+      }
+
+      if (type === 'load') {
+        this.$router.push({ name: 'load', params: { loadId: '123' } })
+      }
+
     },
     getPrevMenu() {
       this.$store.dispatch(
@@ -37,6 +44,7 @@ export default {
     getMainMenu() {
       this.$store.dispatch("getNavigation");
       this.$store.commit("clearHistory");
+      this.$router.push({ name: 'home' })
     }
   },
   computed: {

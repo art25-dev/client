@@ -1,9 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-  {
+  { 
+    name: 'home',
     path: '/',
     component: () => import('../components/Carousel.vue')
+    
+  },
+  { 
+    name: 'load',
+    path: '/load',
+    component: () => import('../components/Load.vue')
   }
 
 ]

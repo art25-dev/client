@@ -3,7 +3,11 @@
     <div class="bg"></div>
     <span class="version">Версия - {{ version }}</span>
     <article>
-      <router-view></router-view>
+      <router-view v-slot="{ Component }">
+        <transition name="slide-fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </article>
     <aside>
       <Calendar />
@@ -21,18 +25,18 @@ import { version } from "../package.json";
 export default {
   components: {
     Navigation,
-    Calendar
+    Calendar,
   },
   data() {
     return {
-      version
-    }
+      version,
+    };
   },
   created() {
-    this.$store.dispatch("getPostList")
+    this.$store.dispatch("getPostList");
     this.$store.dispatch("getNavigation");
     this.$store.commit("clearHistory");
-  }
+  },
 };
 </script>
 
@@ -92,7 +96,7 @@ aside {
   font-family: "Roboto-Regular", "Arial", sans-serif;
   padding: 1rem 0;
   text-align: center;
-  
+
   letter-spacing: 1px;
 }
 
@@ -122,5 +126,19 @@ aside {
   to {
     opacity: 1;
   }
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-30px);
+  opacity: 0;
 }
 </style>
