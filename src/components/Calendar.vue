@@ -1,35 +1,35 @@
 <template>
-  <section class="calendar">
+  <section class="calendar" v-cloak>
     <div class="clock">
-      <span class="hour">{{ hour }}</span>
+      <span class="hour">{{ $moment(dateNow).format("HH") }}</span>
       <span class="dots">:</span>
-      <span class="minute">{{ minute }}</span>
+      <span class="minute">{{ $moment(dateNow).format("mm") }}</span>
     </div>
     <div class="date">
-      <span class="day">{{ day }}</span>
+      <span class="day">{{ $moment(dateNow).format("dddd") }}</span>
       <span class="slash">/</span>
-      <span class="month">{{ month }}</span>
+      <span class="month">{{ $moment(dateNow).format("LL") }}</span>
     </div>
-    <icon class="gerb" v-on:click.shift="goAdmin" name="gerb" />
+    <icon class="gerb" name="gerb" />
   </section>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      hour: 10,
-      minute: 20,
-      day: "пятница",
-      month: "15 августа"
-    };
+    return {};
   },
-  methods: {
-    goAdmin() {
-      this.$router.push({ path: "/admin" });
-    }
+  created() {
+    this.$store.dispatch("getDate");
+        setInterval(() => {
+      this.$store.dispatch("getDate");
+    }, 60000);
   },
-  mounted() {}
+  computed: {
+    dateNow() {
+      return this.$store.getters.dateNow;
+    },
+  },
 };
 </script>
 
@@ -61,7 +61,6 @@ export default {
   font-size: 5rem;
   display: block;
   font-family: "Roboto-Black", "Arial", sans-serif;
-  
 }
 
 .dots {

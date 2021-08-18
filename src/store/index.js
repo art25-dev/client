@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export default createStore({
   state: {
+    date: null,
     navigation: [],
     history: [],
     postList: []
@@ -27,6 +28,9 @@ export default createStore({
     setPostList(state, postList) {
       state.postList = postList
     },
+    setDate(state, date) {
+      state.date = date
+    },
   },
   actions: {
     // Запрос на сервер навигации
@@ -49,11 +53,21 @@ export default createStore({
         throw e
       }
     },
+    // Запрос даты и времени
+    async getDate({ commit }) {
+      try {
+        const date = await axios.get(`/api/date`)
+        commit("setDate", date.data)
+      } catch (e) {
+        throw e
+      }
+    },
   },
   getters: {
     navigation: state => state.navigation.sort((a, b) => (a.title > b.title ? 1 : -1)),
     prevNavigation: state => state.history.slice(-2, -1),
     lastNavigation: state => state.history.slice(-1),
-    postList: state => state.postList
+    postList: state => state.postList,
+    dateNow: state => state.date
   }
 })

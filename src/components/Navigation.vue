@@ -24,17 +24,20 @@
 export default {
   methods: {
     getSubMenu(id, type) {
-      if (type === 'link') {
-        this.$store.dispatch("getNavigation", id);
-        this.$store.commit("addHistory", id); 
+      switch (type) {
+        case "link":
+          this.$store.dispatch("getNavigation", id);
+          this.$store.commit("addHistory", id);
+          break;
+        case "load":
+          this.$router.push({ name: "load", params: { loadId: "123" } });
+          break;
       }
-
-      if (type === 'load') {
-        this.$router.push({ name: 'load', params: { loadId: '123' } })
-      }
-
     },
     getPrevMenu() {
+      if (this.$store.state.history.length === 1) {
+        this.$router.push({ name: "home" });
+      }
       this.$store.dispatch(
         "getNavigation",
         this.$store.getters.prevNavigation[0]
@@ -44,14 +47,14 @@ export default {
     getMainMenu() {
       this.$store.dispatch("getNavigation");
       this.$store.commit("clearHistory");
-      this.$router.push({ name: 'home' })
-    }
+      this.$router.push({ name: "home" });
+    },
   },
   computed: {
     navigation() {
       return this.$store.getters.navigation;
-    }
-  }
+    },
+  },
 };
 </script>
 

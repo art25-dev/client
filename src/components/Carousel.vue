@@ -9,7 +9,7 @@
       <slide v-for="post in postList" :key="post._id">
         <h1 class="slider__item-title">{{ post.title }}</h1>
         <div class="slider__item-content">{{ post.content }}</div>
-        <span class="slider__item-date">{{ post.date }}</span>
+        <span class="slider__item-date">{{ $moment(post.date).format("LL") }}</span>
       </slide>
       <template #addons>
         <pagination />
@@ -59,6 +59,10 @@ export default {
     height: 5px;
     background: $color-danger;
     display: block;
+  }
+
+    &::first-letter {
+    text-transform: capitalize;
   }
 }
 
