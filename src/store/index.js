@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
 
 
 export default createStore({
@@ -37,8 +36,9 @@ export default createStore({
     async getNavigation({ commit, getters }, id = 'none') {
       try {
         if (getters.lastNavigation != id) {
-          const navigation = await axios.get(`/api/nav/children/${id}`)
-          commit("setNavigation", navigation.data)
+          const req = await fetch(`/api/nav/children/${id}`);
+          const navigation = await req.json()
+          commit("setNavigation", navigation)
         }
       } catch (e) {
         throw e
@@ -47,8 +47,9 @@ export default createStore({
     // Запрос на сервер постов
     async getPostList({ commit }) {
       try {
-        const postList = await axios.get(`/api/post/active`)
-        commit("setPostList", postList.data)
+        const req = await fetch(`/api/post/active`);
+        const postList = await req.json()
+        commit("setPostList", postList)
       } catch (e) {
         throw e
       }
@@ -56,8 +57,9 @@ export default createStore({
     // Запрос даты и времени
     async getDate({ commit }) {
       try {
-        const date = await axios.get(`/api/date`)
-        commit("setDate", date.data)
+        const req = await fetch(`/api/date`);
+        const date = await req.json()
+        commit("setDate", date)
       } catch (e) {
         throw e
       }
