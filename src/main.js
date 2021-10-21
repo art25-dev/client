@@ -1,3 +1,4 @@
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -15,14 +16,16 @@ import Icon from '@/components/Icon';
 const app = createApp(App)
 
 app.use(new VueSocketIO({
-  debug: true,
-  connection: 'http://localhost:3000',
+  debug: false,
+  connection: SocketIO('http://localhost:3000'),
   vuex: {
       store,
       actionPrefix: 'SOCKET_',
       mutationPrefix: 'SOCKET_'
-  }
+  },
 }))
+
+
 
 app.config.globalProperties.$moment = moment
 app.component('icon', Icon)

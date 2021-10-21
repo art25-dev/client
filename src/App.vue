@@ -36,6 +36,7 @@ export default {
     this.$store.dispatch("getPostList");
     this.$store.dispatch("getNavigation");
     this.$store.commit("clearHistory");
+    
   },
 };
 </script>
