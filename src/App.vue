@@ -27,6 +27,11 @@ export default {
     Navigation,
     Calendar,
   },
+  sockets: {
+    connect() {
+      console.log('client');
+    }
+  },
   data() {
     return {
       version,

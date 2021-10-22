@@ -6,7 +6,12 @@ export default createStore({
     date: null,
     navigation: [],
     history: [],
-    postList: []
+    postList: [],
+    db: {
+      date: null,
+      size: null,
+      status: false
+    }
   },
   mutations: {
     setNavigation(state, navigation) {
@@ -27,9 +32,13 @@ export default createStore({
     setPostList(state, postList) {
       state.postList = postList
     },
-    setDate(state, date) {
-      state.date = date
+    setDate(state, dbInfo) {
+      state.db = dbInfo
     },
+    setDbInfo(state, data) {
+      state.db = data 
+      console.log(data);
+    }
   },
   actions: {
     // Запрос на сервер навигации
@@ -64,6 +73,15 @@ export default createStore({
         throw e
       }
     },
+    // Запрос информации о БД через socket
+    SOCKET_dbInfo({commit}, data) {
+      try {
+        console.log(data);
+        commit("setDbInfo", data)
+      } catch (e) {
+        throw e
+      }
+    }
   },
   getters: {
     navigation: state => state.navigation.sort((a, b) => (a.title > b.title ? 1 : -1)),
