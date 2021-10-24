@@ -12,7 +12,7 @@
     <aside>
       <Calendar />
       <Navigation />
-      <p class="tray">Антивирусные базы от 10.08.2021</p>
+      <Tray />
     </aside>
   </div>
 </template>
@@ -20,12 +20,14 @@
 <script>
 import Calendar from "@/components/Calendar";
 import Navigation from "@/components/Navigation";
+import Tray from "@/components/Tray";
 import { version } from "../package.json";
 
 export default {
   components: {
     Navigation,
     Calendar,
+    Tray
   },
   sockets: {
     connect() {
@@ -94,16 +96,6 @@ aside {
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
     0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px 0 rgba(0, 0, 0, 0.2);
   padding: 2rem 2rem 0 2rem;
-}
-
-.tray {
-  font-size: 1rem;
-  color: $color-second;
-  font-family: "Roboto-Regular", "Arial", sans-serif;
-  padding: 1rem 0;
-  text-align: center;
-
-  letter-spacing: 1px;
 }
 
 .version {

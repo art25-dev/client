@@ -11,6 +11,11 @@ const routes = [
     name: 'load',
     path: '/load',
     component: () => import('../components/Load.vue')
+  },
+  { 
+    name: 'dbinfo',
+    path: '/dbinfo',
+    component: () => import('../components/DbInfo.vue')
   }
 
 ]

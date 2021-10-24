@@ -50,5 +50,13 @@ export default {
     width: 65px;
     height: 120px;
   }
+
+  &--info {
+    height: 25px;
+    width: 25px;
+    fill: $color-second;
+  }
 }
+
+
 </style>

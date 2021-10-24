@@ -27,7 +27,12 @@ export default {
   },
   computed: {
     dateNow() {
-      return this.$store.getters.dateNow;
+      if(typeof(this.$store.getters.dateNow) != 'number') {
+        return 0
+      } else {
+        return this.$store.getters.dateNow;
+      }
+      
     },
   },
 };

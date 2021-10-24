@@ -32,12 +32,12 @@ export default createStore({
     setPostList(state, postList) {
       state.postList = postList
     },
-    setDate(state, dbInfo) {
-      state.db = dbInfo
+    setDate(state, date) {
+      state.date = date
     },
-    setDbInfo(state, data) {
-      state.db = data 
-      console.log(data);
+    setDbInfo(state, dbInfo) {
+      state.db = dbInfo 
+      console.log(dbInfo);
     }
   },
   actions: {
@@ -88,6 +88,7 @@ export default createStore({
     prevNavigation: state => state.history.slice(-2, -1),
     lastNavigation: state => state.history.slice(-1),
     postList: state => state.postList,
-    dateNow: state => state.date
+    dateNow: state => state.date,
+    dbInfo: state => state.db
   }
 })
