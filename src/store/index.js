@@ -37,7 +37,6 @@ export default createStore({
     },
     setDbInfo(state, dbInfo) {
       state.db = dbInfo 
-      console.log(dbInfo);
     }
   },
   actions: {
