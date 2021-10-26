@@ -14,6 +14,7 @@ export default {
     return {};
   },
   created() {
+    this.$store.dispatch("getDbInfo");
   },
   methods: {
   },

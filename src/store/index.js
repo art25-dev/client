@@ -72,10 +72,19 @@ export default createStore({
         throw e
       }
     },
+    // Запрос даты и времени
+    async getDbInfo({ commit }) {
+      try {
+        const req = await fetch(`/api/db`);
+        const date = await req.json()
+        commit("setDbInfo", date)
+      } catch (e) {
+        throw e
+      }
+    },
     // Запрос информации о БД через socket
     SOCKET_dbInfo({commit}, data) {
       try {
-        console.log(data);
         commit("setDbInfo", data)
       } catch (e) {
         throw e
